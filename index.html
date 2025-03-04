@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klasemen SF November</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Aleo:ital,wght@0,100..900;1,100..900&family=Amiri+Quran&family=Berkshire+Swash&family=Caveat:wght@400..700&family=Gabarito:wght@400..900&family=Gowun+Dodum&family=Hammersmith+One&family=Hanalei+Fill&family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Knewave&family=Lexend+Deca:wght@100..900&family=Lilita+One&family=Lora:ital,wght@0,400..700;1,400..700&family=Manjari:wght@100;400;700&family=Roboto:wght@700&display=swap" rel="stylesheet">    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 10px;
+        }
+
+        #background-container {
+            background-image:  url(bck90.png); /* Gambar background awal */
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            font-size: 58px;
+            margin-bottom: -1px;
+            font-weight: bold;
+            font-family: "Berkshire Swash",serif;
+            margin-top: 10px;
+            text-align: center;
+            color: #f2c867;
+            text-shadow: 
+            -2px -2px 0 black,  
+             2px -2px 0 black,  
+            -2px  2px 0 black,  
+             2px  2px 0 black;
+        }
+
+        .kiri {
+            transform: translateX(0px);
+            width:900px;
+            display: flex;
+        }
+
+        .kanan {
+            width: 500px;
+            transform: translateX(-40px);
+            margin-top: 40px;
+        }
+
+        .container {
+            display: grid;
+            margin-left: 5px;
+            grid-template-columns: repeat(2,1fr);
+            /* justify-content: center; */
+            gap: 10px;
+            padding: 20px;
+            transform: translateY(50pxpx);
+        }
+
+        .juara {
+            width: 110%;
+            /* transform: translate(-140px,-160px); */
+            display: flex;
+            transform: translateX(90px);
+            margin-top: 130px;
+        }
+        .juara1 {
+            margin-left: -250px;
+        }
+
+        .juara2 {
+            margin-left: -150px;
+            transform: translateY(10px);
+        }
+
+        .juara3 {
+            margin-left: -180px;
+            transform: translateY(20px);
+        }
+
+        .juara4 {
+            margin-left: -180px;
+            transform: translateY(30px);
+        }
+
+        .juara5 {
+            margin-left: -200px;
+            transform: translateY(40px);
+        }
+
+        .juara6 {
+            margin-left: -200px;
+            transform: translateY(50px);
+        }
+
+
+        .sales table {
+            border-collapse: collapse;
+            width: 400px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            color: #7a5200;
+            height: 20px;
+            overflow: hidden;
+            font-family: "lora",serif;
+        }
+
+        tbody {
+            height: 7px;
+        }
+
+        th, td {
+            padding: 7px;
+            text-align: center;
+        }
+
+        tr {
+            height: 7px;
+            color: #7a5200;
+        }
+
+        th {
+            background-color: #7a5200;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:nth-child(even) {
+            background-color:white;
+        }
+
+        tr:hover {
+            background-color: #f2c867;
+            cursor: pointer;
+        }
+
+        .info {
+            max-width: 800px;
+            transform: translateX(0px);
+            color: white;
+            display: flex;
+            gap: 10px;
+        }
+
+        .info ul {
+            width: 600px;
+            list-style: disc;
+            padding-left: 20px;
+            font-size: 16px;
+            font-family: "roboto", serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #4C3D3D;
+        }
+
+        .rank tr .total   {
+            background-color: #fdca00;
+        }
+        .rank {
+            position: relative;
+            color: white;
+
+            
+        }
+
+        .rank table {
+            border-collapse: collapse;
+            background-color:white;
+            color: black;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 15px;
+            font-family: "lora",serif;
+            padding: 10px;
+        }
+
+        .rank table td,th {
+            padding: 7px;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+
+        .rank p {
+            margin: 2px 0;
+            /* font-weight: bold; */
+            color: black;
+            font-weight: 600;
+            font-family: "lexend deca",serif;
+
+        }
+
+        .img {
+            margin-top: 350px;
+            margin-left: 40px;
+            transform: scale(1.2);
+        }
+
+        .upload-section {
+            border-radius: 20px;
+        }
+
+        .upload-section button, input {
+            font-family: "lexend deca", serif;
+            cursor: pointer;
+
+        }
+
+        .button-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .button-section button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        .button-section button:hover {
+            background-color: #45a049;
+        }
+
+        .footer {
+            background: white;
+            width: cover;
+            display: flex;
+            gap: 50px;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .button-section button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        .button-section button:hover {
+            background-color: #0056b3;
+        }
+
+        /* styles.css */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="isi" id="capture">
+        <div class="background" id="background-container">
+
+
+
+            <div class="container" >
+                <div class="kiri">
+
+                    <div class="info">
+                        <div class="sales">
+                            <table class="SF" id="sfTable">
+                                <tr>
+                                    <th>RANK</th>
+                                    <th>NAMA SF</th>
+                                    <th>INPUTAN</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="rank">
+                            <table class="DATEL" id="datelTable">
+                                <tr>
+                                    <th>TELDA</th>
+                                    <th>TARGET</th>
+                                    <th>REAL</th>
+                                    <th>ACH</th>
+                                </tr>
+                            </table>
+                            <ul>
+                                <li>Periode Bulan Februari 2025</li>
+                                <li id= "tanggal"></li>
+                                <li>Minimum 1 Inputan untuk masuk klasemen</li>
+                            </ul>
+                        </div>
+
+                    </div>
+            
+
+                </div>
+                <div class="kanan">
+                    <h1>Klasemen AR/SA Februari</h1>
+                    <div class="juara">
+                        <div class="juara1"><img src="u-galih.png" width="70%" ></div>
+                        <div class="juara2"><img src="u-samsul.png" width="70%" ></div>
+                        <div class="juara3"><img src="u-ulin.png" width="70%"></div>
+                        <div class="juara4"><img src="u-tatang.png" width="70%" ></div>
+                        <div class="juara5"><img src="u-whimpy.png" width="70%" ></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="upload-section">
+            <h2>Update Data dari Excel</h2>
+            <input type="file" id="excelFile" accept=".xlsx, .xls">
+            <button onclick="processExcel()">Update Tabel</button>
+        </div>
+
+        <div class="button-section">
+            <h2>Ganti Juara</h2>
+            <button onclick="gantiJuara(1)">Ganti Juara 1</button>
+            <button onclick="gantiJuara(2)">Ganti Juara 2</button>
+            <button onclick="gantiJuara(3)">Ganti Juara 3</button>
+            <button onclick="gantiJuara(4)">Ganti Juara 4</button>
+            <button onclick="gantiJuara(5)">Ganti Juara 5</button>
+            <button onclick="gantiJuara(6)">Ganti Juara 6</button>
+        </div>
+
+        <div class="button-section">
+            <h2>Ekspor Klasemen ke Gambar</h2>
+            <button onclick="exportToImage()">Download Klasemen</button>
+        </div>
+
+
+
+    </div>
+
+    <script>
+            const tanggalSekarang = new Date();
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            const tanggalFormat = tanggalSekarang.toLocaleDateString('id-ID', options);
+        
+            document.getElementById("tanggal").innerHTML = `Data ini diambil pada <strong>${tanggalFormat}</strong> (update berkala)`;
+        
+            function processExcel() {
+            const fileInput = document.getElementById('excelFile');
+            const file = fileInput.files[0];
+        
+            if (!file) { 
+                alert("Silakan pilih file Excel terlebih dahulu!");
+                return;
+            }
+        
+            const reader = new FileReader();
+            reader.onload = function (e) { 
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+        
+                // **Ambil data dari sheet pertama untuk sfTable**
+                if (workbook.SheetNames.length > 0) {
+                    const sheet1 = workbook.Sheets[workbook.SheetNames[0]];
+                    const jsonDataSF = XLSX.utils.sheet_to_json(sheet1, { header: 1 });
+                    updateTable('sfTable', jsonDataSF.slice(1)); // Masukkan semua data kecuali header ke sfTable
+                }
+        
+                // **Ambil data dari sheet kedua untuk datelTable (jika ada)**
+                if (workbook.SheetNames.length > 1) {
+                    const sheet2 = workbook.Sheets[workbook.SheetNames[1]];
+                    const jsonDataDATEL = XLSX.utils.sheet_to_json(sheet2, { header: 1 });
+                    updateTable('datelTable', jsonDataDATEL.slice(1)); // Masukkan semua data kecuali header ke datelTable
+                } else {
+                    alert("Sheet kedua tidak ditemukan! Pastikan file memiliki 2 sheet.");
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // Fungsi untuk mengupdate tabel
+        function updateTable(tableId, data) {
+            const table = document.getElementById(tableId);
+            while (table.rows.length > 1) {
+                table.deleteRow(1);
+            }
+
+            data.forEach(row => {
+                const newRow = table.insertRow();
+                row.forEach(cell => {
+                    const newCell = newRow.insertCell();
+                    newCell.textContent = cell;
+                });
+            });
+        }
+
+        // Fungsi untuk mengganti gambar juara
+        function gantiJuara(juara) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const imageUrl = e.target.result;
+                        const juaraElement = document.querySelector(`.juara${juara} img`);
+                        if (juaraElement) {
+                            juaraElement.src = imageUrl;
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            input.click();
+        }
+
+        // Fungsi untuk mengekspor div.container menjadi gambar
+        function exportToImage() {
+        const element = document.getElementById("capture");
+
+            html2canvas(document.querySelector("#capture"), {
+                useCORS: true
+                }).then(canvas => {
+                    let link = document.createElement("a");
+                    link.href = canvas.toDataURL("image/png");
+                    link.download = "klasemen.png";
+                    link.click();
+                });
+        }
+
+
+
+        function toggleClass() {
+ 
+        var juaraDiv = document.querySelector(".juara");
+        var backgroundDiv = document.getElementById("background-container");
+        var cyclingDiv = document.querySelector(".cycling");
+        var fontinfoDiv = document.querySelector(".info")
+
+        // Cek apakah elemen juara sedang ditampilkan
+        if (juaraDiv.style.display !== "none") {
+            juaraDiv.style.display = "none";
+            cyclingDiv.style.display = "flex";
+            backgroundDiv.style.backgroundImage = "url('bck3.png')"
+            fontinfoDiv.style.color = "black" // Menampilkan elemen cycling
+        } else {
+
+        }
+    }
+        function Pelari() {
+ 
+        var juaraDiv = document.querySelector(".juara");
+        var backgroundDiv = document.getElementById("background-container");
+        var cyclingDiv = document.querySelector(".cycling");
+        var fontinfoDiv = document.querySelector(".info")
+
+        // Cek apakah elemen juara sedang ditampilkan
+        if (cyclingDiv.style.display !== "none") {
+            cyclingDiv.style.display = "none";
+            juaraDiv.style.display = "flex";
+            backgroundDiv.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('bck0.png')"
+            fontinfoDiv.style.color = "white" // Menampilkan elemen cycling
+        } else {
+
+        }
+
+    }
+
+
+    </script>
+
+</body>
+</html>
